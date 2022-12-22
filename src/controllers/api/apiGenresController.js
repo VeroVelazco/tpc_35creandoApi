@@ -1,17 +1,17 @@
 const {Op} = require("sequelize");
 const db = require('../../database/models');
-const {createError}= require('../../helpers/index')
+const {createError}= require('../../helpers');
 
 module.exports = {
     list: async (req, res) => {
         let {limit, order = 'id'} = req.query
-        let fields = ['name', 'ranking'] // campos que quiero traer
+        // let fields = ['name', 'ranking'] // campos que quiero traer
         
         try {
 
-            if(!fields.includes(order)){
-                throw createError(400, "Solo se ordenan por los campos 'name' o 'ranking'");
-            };
+            // if(!fields.includes(order)){
+            //     throw createError(400, "Solo se ordenan por los campos 'name' o 'ranking'");
+            // };
 
             let total = await db.Genre.count()  // count devuelve una cantidad
             let genres = await db.Genre.findAll({
@@ -44,16 +44,13 @@ module.exports = {
     },
     getById: async (req, res) => {
         const {id} = req.params;
-        
         try {
             //  creo el error 
-            if(isNaN(id)){
-                throw createError(400, 'El Id debe ser un número');
-            }
-
+            // if((!isNaN)(id)){
+            //     error.status(400, 'El Id debe ser un número');
+            // }
             let genre = await db.Genre.findByPk(id);
-
-            // validación
+             // validación
             if(!genre){
                  // cuando no encuentra el id del género
                 let error = new Error('No se encuentre un género con ese ID');
@@ -95,9 +92,7 @@ module.exports = {
                 }
             });
             if(!genre){
-                let error = new Error('No se encuentra un género con ese nombre');
-                error.status = 404;
-                throw error
+                throw createError(404, "No se encuentra un genero con ese nombre")
             }
             return res.status(200).json({
                 ok: true,

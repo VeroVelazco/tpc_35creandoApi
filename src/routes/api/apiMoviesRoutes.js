@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const {list, getById, create, newest, recomended, update, destroy} = require('../../controllers/api/apiMoviesController');
 
+
+// movies
+
 router
     .get('/', list)
     .get('/new', newest)

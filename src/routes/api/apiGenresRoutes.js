@@ -5,8 +5,9 @@ const {list, getById, getByName} = require('../../controllers/api/apiGenresContr
 // genres
 router
     .get('/', list)
-    .get('/name/:name?', getByName)
     .get('/:id', getById)
+    .get('/:name?', getByName)
+    
     
 
 module.exports = router;

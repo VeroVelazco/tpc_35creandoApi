@@ -1,4 +1,4 @@
-const {objectValidate, defaultValifdations} = require('../resouces');
+const {objectValidate, defaultValidations} = require('../resouces');
 const fecha = new Date();
 
 module.exports = (sequelize, dataTypes) => {
@@ -16,32 +16,32 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.STRING(500),
             allowNull: false,
             validate : { // validacion de sequelize
-                ...defaultValifdations
+                ...defaultValidations
             }
         },
         rating: {
             type: dataTypes.DECIMAL(3, 1).UNSIGNED,
             allowNull: false,
             validate : { // validacion de sequelize
-                ...defaultValifdations
+                ...defaultValidations
             }
         },
         awards: {
             type: dataTypes.BIGINT(10).UNSIGNED,
             allowNull: false,
             validate : { // validacion de sequelize
-                ...defaultValifdations
+                ...defaultValidations
             }
         },
         release_date: {
             type: dataTypes.DATEONLY,
             allowNull: false,
             validate : { // validacion de sequelize
-                ...defaultValifdations,
-                isBefore :{
-                    args : `${fecha.getFullYear}/${fecha.getMonth}/${fecha.getDate}`,
-                    msg : 'La fecha debe ser anterior a la actual'
-                } 
+                ...defaultValidations,
+                isBefore: {
+                    args: `${fecha.getFullYear()}-${fecha.getMonth()+1}-${fecha.getDate()}`,
+                    msg: "La fecha debe ser anterior a la actual"
+                }
             }
         },
         length: dataTypes.BIGINT(10),

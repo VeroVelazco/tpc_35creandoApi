@@ -3,7 +3,7 @@ const db = require("../../database/models");
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
 const moment = require('moment');
-const {createError, getUrl, getUrlBase}= require('../../helpers/index');
+const {createError, getUrl, getUrlBase}= require('../../helpers');
 // const { errorMonitor } = require('events');
 
 
@@ -75,6 +75,15 @@ const moviesController = {
             });
         }
     },
+    // getById : (req, res) => {
+    //     db.Movie.findByPk(req.params.id,
+    //         {
+    //             include : ['genre']
+    //         })
+    //         .then(movie => {
+    //             res.render('moviesDetail.ejs', {movie});
+    //         });
+    // },
     getById: async (req, res) => {
         const {id} = req.params
         try {
@@ -301,7 +310,7 @@ const moviesController = {
                     message: error.message
                 }
             })
-            return res.send(showErrors)
+            return res.status(showErrors)
         } 
         
         

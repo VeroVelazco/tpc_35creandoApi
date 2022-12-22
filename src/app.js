@@ -10,8 +10,8 @@ const app = express();
 // const genresRoutes = require('./routes/genresRoutes');
 
 //Aquí pueden colocar las rutas de las APIs
-const apiGenresRoutes = require('./routes/api/apiGenresRoutes');
-const apiMoviesRoutes = require ('./routes/api/apiMoviesRoutes');
+// const apiGenresRoutes = require('./routes/api/apiGenresRoutes');
+// const apiMoviesRoutes = require ('./routes/api/apiMoviesRoutes');
 
 
 // view engine setup
@@ -30,9 +30,10 @@ app.use(methodOverride('_method'));
 // app.use( moviesRoutes);
 // // app.use(genresRoutes);
 
-app.use(apiGenresRoutes);
-app.use(apiMoviesRoutes);
+app.use('/genres', require('./routes/api/apiGenresRoutes'));
+app.use('/movies', require('./routes/api/apiMoviesRoutes'));
 
+app.use("*",(req,res) => res.status(404).json({msg:"ruta no encontrada :C"}))
 
 //Activando el servidor desde express
 app.listen('3001', () => console.log('Servidor corriendo en el puerto 3001'));
